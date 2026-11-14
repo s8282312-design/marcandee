@@ -1,0 +1,274 @@
+workflows:
+  ios-build:
+    name: Markande iOS Build
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      xcode: latest
+      ios_signing:
+        distribution_type: development
+        bundle_identifier: com.markande.app
+    scripts:
+      - name: Set up Xcode project
+        script: |
+          # Создаём структуру проекта
+          mkdir -p Markande.xcodeproj
+          
+          # Создаём Info.plist
+          cat > Info.plist <<'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>CFBundleDevelopmentRegion</key>
+              <string>$(DEVELOPMENT_LANGUAGE)</string>
+              <key>CFBundleExecutable</key>
+              <string>$(EXECUTABLE_NAME)</string>
+              <key>CFBundleIdentifier</key>
+              <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+              <key>CFBundleInfoDictionaryVersion</key>
+              <string>6.0</string>
+              <key>CFBundleName</key>
+              <string>$(PRODUCT_NAME)</string>
+              <key>CFBundlePackageType</key>
+              <string>APPL</string>
+              <key>CFBundleShortVersionString</key>
+              <string>1.0</string>
+              <key>CFBundleVersion</key>
+              <string>1</string>
+              <key>LSRequiresIPhoneOS</key>
+              <true/>
+              <key>UILaunchScreen</key>
+              <dict/>
+              <key>UISupportedInterfaceOrientations</key>
+              <array>
+                  <string>UIInterfaceOrientationPortrait</string>
+              </array>
+          </dict>
+          </plist>
+          EOF
+          
+          # Создаём pbxproj
+          cat > Markande.xcodeproj/project.pbxproj <<'PBXEOF'
+          // !$*UTF8*$!
+          {
+              archiveVersion = 1;
+              classes = {};
+              objectVersion = 56;
+              objects = {
+                  /* Begin PBXBuildFile section */
+                  MARKANDE_SWIFT_FILE /* MarkandeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = MARKANDE_SWIFT_REF /* MarkandeApp.swift */; };
+                  /* End PBXBuildFile section */
+                  
+                  /* Begin PBXFileReference section */
+                  MARKANDE_APP /* Markande.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Markande.app; sourceTree = BUILT_PRODUCTS_DIR; };
+                  MARKANDE_SWIFT_REF /* MarkandeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkandeApp.swift; sourceTree = "<group>"; };
+                  /* End PBXFileReference section */
+                  
+                  /* Begin PBXFrameworksBuildPhase section */
+                  MARKANDE_FRAMEWORKS /* Frameworks */ = {
+                      isa = PBXFrameworksBuildPhase;
+                      buildActionMask = 2147483647;
+                      files = ();
+                      runOnlyForDeploymentPostprocessing = 0;
+                  };
+                  /* End PBXFrameworksBuildPhase section */
+                  
+                  /* Begin PBXGroup section */
+                  MARKANDE_ROOT_GROUP = {
+                      isa = PBXGroup;
+                      children = (
+                          MARKANDE_SOURCES_GROUP /* Sources */,
+                          MARKANDE_PRODUCTS_GROUP /* Products */,
+                      );
+                      sourceTree = "<group>";
+                  };
+                  MARKANDE_PRODUCTS_GROUP /* Products */ = {
+                      isa = PBXGroup;
+                      children = (
+                          MARKANDE_APP /* Markande.app */,
+                      );
+                      name = Products;
+                      sourceTree = "<group>";
+                  };
+                  MARKANDE_SOURCES_GROUP /* Sources */ = {
+                      isa = PBXGroup;
+                      children = (
+                          MARKANDE_SWIFT_REF /* MarkandeApp.swift */,
+                      );
+                      path = Sources;
+                      sourceTree = "<group>";
+                  };
+                  /* End PBXGroup section */
+                  
+                  /* Begin PBXNativeTarget section */
+                  MARKANDE_TARGET /* Markande */ = {
+                      isa = PBXNativeTarget;
+                      buildConfigurationList = MARKANDE_TARGET_CONFIG_LIST;
+                      buildPhases = (
+                          MARKANDE_SOURCES_PHASE /* Sources */,
+                          MARKANDE_FRAMEWORKS /* Frameworks */,
+                          MARKANDE_RESOURCES /* Resources */,
+                      );
+                      buildRules = ();
+                      dependencies = ();
+                      name = Markande;
+                      productName = Markande;
+                      productReference = MARKANDE_APP /* Markande.app */;
+                      productType = "com.apple.product-type.application";
+                  };
+                  /* End PBXNativeTarget section */
+                  
+                  /* Begin PBXProject section */
+                  MARKANDE_PROJECT /* Project object */ = {
+                      isa = PBXProject;
+                      attributes = {
+                          BuildIndependentTargetsInParallel = 1;
+                          LastSwiftUpdateCheck = 1500;
+                          LastUpgradeCheck = 1500;
+                          TargetAttributes = {
+                              MARKANDE_TARGET = {
+                                  CreatedOnToolsVersion = 15.0;
+                              };
+                          };
+                      };
+                      buildConfigurationList = MARKANDE_PROJECT_CONFIG_LIST;
+                      compatibilityVersion = "Xcode 14.0";
+                      developmentRegion = en;
+                      hasScannedForEncodings = 0;
+                      knownRegions = (en, Base,);
+                      mainGroup = MARKANDE_ROOT_GROUP;
+                      productRefGroup = MARKANDE_PRODUCTS_GROUP;
+                      projectDirPath = "";
+                      projectRoot = "";
+                      targets = (MARKANDE_TARGET);
+                  };
+                  /* End PBXProject section */
+                  
+                  /* Begin PBXResourcesBuildPhase section */
+                  MARKANDE_RESOURCES /* Resources */ = {
+                      isa = PBXResourcesBuildPhase;
+                      buildActionMask = 2147483647;
+                      files = ();
+                      runOnlyForDeploymentPostprocessing = 0;
+                  };
+                  /* End PBXResourcesBuildPhase section */
+                  
+                  /* Begin PBXSourcesBuildPhase section */
+                  MARKANDE_SOURCES_PHASE /* Sources */ = {
+                      isa = PBXSourcesBuildPhase;
+                      buildActionMask = 2147483647;
+                      files = (
+                          MARKANDE_SWIFT_FILE /* MarkandeApp.swift in Sources */,
+                      );
+                      runOnlyForDeploymentPostprocessing = 0;
+                  };
+                  /* End PBXSourcesBuildPhase section */
+                  
+                  /* Begin XCBuildConfiguration section */
+                  MARKANDE_PROJECT_DEBUG = {
+                      isa = XCBuildConfiguration;
+                      buildSettings = {
+                          ALWAYS_SEARCH_USER_PATHS = NO;
+                          CLANG_ENABLE_MODULES = YES;
+                          CLANG_ENABLE_OBJC_ARC = YES;
+                          IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                          SDKROOT = iphoneos;
+                          SWIFT_VERSION = 5.0;
+                      };
+                      name = Debug;
+                  };
+                  MARKANDE_PROJECT_RELEASE = {
+                      isa = XCBuildConfiguration;
+                      buildSettings = {
+                          ALWAYS_SEARCH_USER_PATHS = NO;
+                          CLANG_ENABLE_MODULES = YES;
+                          CLANG_ENABLE_OBJC_ARC = YES;
+                          IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                          SDKROOT = iphoneos;
+                          SWIFT_VERSION = 5.0;
+                          VALIDATE_PRODUCT = YES;
+                      };
+                      name = Release;
+                  };
+                  MARKANDE_TARGET_DEBUG = {
+                      isa = XCBuildConfiguration;
+                      buildSettings = {
+                          ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                          CODE_SIGN_STYLE = Automatic;
+                          CURRENT_PROJECT_VERSION = 1;
+                          GENERATE_INFOPLIST_FILE = NO;
+                          INFOPLIST_FILE = Info.plist;
+                          IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                          MARKETING_VERSION = 1.0;
+                          PRODUCT_BUNDLE_IDENTIFIER = com.markande.app;
+                          PRODUCT_NAME = "$(TARGET_NAME)";
+                          SWIFT_VERSION = 5.0;
+                          TARGETED_DEVICE_FAMILY = "1,2";
+                      };
+                      name = Debug;
+                  };
+                  MARKANDE_TARGET_RELEASE = {
+                      isa = XCBuildConfiguration;
+                      buildSettings = {
+                          ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                          CODE_SIGN_STYLE = Automatic;
+                          CURRENT_PROJECT_VERSION = 1;
+                          GENERATE_INFOPLIST_FILE = NO;
+                          INFOPLIST_FILE = Info.plist;
+                          IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+                          MARKETING_VERSION = 1.0;
+                          PRODUCT_BUNDLE_IDENTIFIER = com.markande.app;
+                          PRODUCT_NAME = "$(TARGET_NAME)";
+                          SWIFT_VERSION = 5.0;
+                          TARGETED_DEVICE_FAMILY = "1,2";
+                      };
+                      name = Release;
+                  };
+                  /* End XCBuildConfiguration section */
+                  
+                  /* Begin XCConfigurationList section */
+                  MARKANDE_PROJECT_CONFIG_LIST = {
+                      isa = XCConfigurationList;
+                      buildConfigurations = (
+                          MARKANDE_PROJECT_DEBUG,
+                          MARKANDE_PROJECT_RELEASE,
+                      );
+                      defaultConfigurationIsVisible = 0;
+                      defaultConfigurationName = Release;
+                  };
+                  MARKANDE_TARGET_CONFIG_LIST = {
+                      isa = XCConfigurationList;
+                      buildConfigurations = (
+                          MARKANDE_TARGET_DEBUG,
+                          MARKANDE_TARGET_RELEASE,
+                      );
+                      defaultConfigurationIsVisible = 0;
+                      defaultConfigurationName = Release;
+                  };
+                  /* End XCConfigurationList section */
+              };
+              rootObject = MARKANDE_PROJECT /* Project object */;
+          }
+          PBXEOF
+          
+          echo "✅ Xcode project structure created"
+      - name: Build iOS app
+        script: |
+          xcodebuild build \
+            -project Markande.xcodeproj \
+            -scheme Markande \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+          
+          # Упаковываем .app в .ipa
+          mkdir -p Payload
+          cp -r build/Build/Products/Release-iphoneos/Markande.app Payload/
+          zip -r Markande.ipa Payload
+          echo "✅ IPA created: Markande.ipa"
+    artifacts:
+      - Markande.ipa
